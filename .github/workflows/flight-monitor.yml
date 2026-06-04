@@ -1,0 +1,34 @@
+name: Flight price monitor
+
+on:
+  schedule:
+    # Runs every day at 01:30 UTC / 09:30 China Standard Time.
+    - cron: "30 1 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run flight monitor
+        env:
+          AMADEUS_CLIENT_ID: ${{ secrets.AMADEUS_CLIENT_ID }}
+          AMADEUS_CLIENT_SECRET: ${{ secrets.AMADEUS_CLIENT_SECRET }}
+        run: python scripts/flight_monitor.py --production
+
+      - name: Commit updated report
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update flight price monitor report"
+          file_pattern: reports/flight-monitor-latest.md reports/flight-monitor-history.csv
