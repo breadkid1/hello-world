@@ -1,0 +1,19 @@
+{
+  "trip_name": "Nanjing/Shanghai to Urumqi 9-day summer trip",
+  "currency": "CNY",
+  "adults": 2,
+  "morning_departure_before": "12:00",
+  "outbound": {
+    "origins": ["NKG", "PVG", "SHA"],
+    "destination": "URC",
+    "dates": ["2026-07-04", "2026-07-11", "2026-07-18", "2026-07-25", "2026-08-01", "2026-08-08"]
+  },
+  "return": {
+    "origin": "URC",
+    "destination": "NKG",
+    "days_after_outbound": 8
+  },
+  "max_results_per_search": 20,
+  "report_path": "reports/flight-monitor-latest.md",
+  "history_path": "reports/flight-monitor-history.csv"
+}
